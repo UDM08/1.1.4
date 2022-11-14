@@ -52,12 +52,9 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.delete(session.get(User.class, id));
             transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
             }
         }
-    }
+
 
     @Override
     public List<User> getAllUsers() {
@@ -66,10 +63,6 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             user = session.createQuery("FROM User ").list();
             transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
         return user;
     }
@@ -80,10 +73,6 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE USERS").executeUpdate();
             transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
     }
 }
